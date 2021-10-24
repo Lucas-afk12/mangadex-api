@@ -1,0 +1,38 @@
+
+<div class="body">
+
+    <app-home> </app-home>
+
+    <div class="container__cards">
+
+      <div class="card" *ngFor="let manga of trueManga">
+
+        <div class="cover">
+              
+            <div class="img__back" style="background-image: url({{manga.image}})"></div>
+              
+        </div>
+
+        <div class="description" [ngSwitch]="manga.attributes.publicationDemographic">
+              
+            <h2 *ngSwitchCase="'shounen'" style="background-color: #FF000090">{{manga.attributes.publicationDemographic}}</h2>
+              
+            <h2 *ngSwitchCase="'shoujo'" style="background-color:#C300AB90">{{manga.attributes.publicationDemographic}}</h2>
+              
+            <h2 *ngSwitchCase="'josei'" style="background-color: #FE81EF90">{{manga.attributes.publicationDemographic}}</h2>
+              
+            <h2 *ngSwitchCase="'none'" style="background-color: #FFC83690">{{manga.attributes.publicationDemographic}}</h2>
+              
+            <h1>{{manga.attributes.title.en}}</h1>
+              
+            <p>{{manga.attributes.description.en}}</p>
+              
+            <input type="button" value="Leer Más" (click)="Ondetail(this.manga)">
+            
+        </div>
+          
+    </div>
+
+</div>
+
+</div>

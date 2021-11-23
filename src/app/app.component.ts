@@ -1,119 +1,113 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-//interfaces
-
+import {Component, OnInit, inject} from '@angular/core';
+import {BottomSheetComponent} from './bottom-sheet/bottom-sheet.component';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {HttpClient} from '@angular/common/http';
+import {AUTO_STYLE} from '@angular/animations';
 
 //estructura del manga
 
-class TrueManga {
-  id:string
-  attributes:MangaData
-  relationships:Array<Relaciones>
-  imagen:string
+export class TrueManga_interface {
+  id: string = '';
+  attributes: MangaData;
+  relationships: Array<Relaciones>;
+  imagen: string = '';
+  auto: string | undefined = '';
+  type: string = '';
 
-  constructor(){}
-
+  constructor(id: string) {
+    this.id = id;
+  }
 
   get image() {
-    return this.imagen
+    return this.imagen;
   }
-  
-  set image(data:string) {
+
+  set image(data: string) {
     this.imagen = data;
   }
-  
-  
+
+  set autor(data: string | undefined) {
+    this.auto = data;
+  }
 }
 
-
-
-  //datos del manga
+//datos del manga
 
 interface MangaData {
-  contentRating:string
-  createdAt:string,
-  description:Descripcion,
-  title: Title,
-  publicationDemographic:string
-
+  contentRating: string;
+  createdAt: string;
+  status: string;
+  description: Descripcion;
+  title: Title;
+  publicationDemographic: string;
 }
 
- 
-
-      //sup partes de mangadata
-
 interface Descripcion {
-  en:string
+  en: string;
 }
 
 interface Title {
-  en:string
+  en: string;
 }
 
-  //Relaciones
+//Relaciones
 
-interface Relaciones{
-  attributes:Atributo
+interface Relaciones {
+  attributes: Atributo;
 }
 
-
-      //datos de las relaciones
-
-interface Atributo{
-  fileName:string
+interface Atributo {
+  fileName: string;
+  name: string;
 }
-
 
 //componente
-
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
+export class AppComponent implements OnInit {
+  imagen: string;
+  mangas: any;
+  trueManga: TrueManga_interface[] = [];
 
-export class AppComponent implements OnInit  {
+  constructor(private http: HttpClient, private bottomSheet: MatBottomSheet) {}
 
-    imagen: string 
-    mangas:any
-    trueManga : TrueManga[] = []
-
-    constructor(private http: HttpClient) {
+  ngOnInit() {
+    for (let i = 4; i < 6; i++) {
+      this.http
+        .get<TrueManga_interface>(
+          `https://api.mangadex.org/manga?includes[]=cover_art&includes[]=author&limit=100&offset=5${i}00`
+        )
+        .subscribe((res:any) => {
+          this.trueManga.push(res.data);
+          this.trueManga = this.trueManga.flat(1);
+          console.log(this.trueManga)
+          this.instcover();
+        });
     }
-    
-    ngOnInit(){
+  }
 
-      this.http.get<TrueManga>("https://api.mangadex.org/manga?includes[]=cover_art&limit=100"
-      )
-      .subscribe( res => 
-        {
-          this.mangas = res
-          this.trueManga = this.mangas.data
-          this.instcover()
-        })
+  instcover() {
+    for (let manga of this.trueManga) {
+      for (let relaciones of manga.relationships) {
+        if (relaciones.attributes != undefined) {
+          this.imagen = `https://uploads.mangadex.org/covers/${manga.id}/${relaciones.attributes.fileName}.256.jpg`;
+          manga.image = this.imagen;
+
+          if (relaciones.attributes.name !== undefined) {
+            manga.autor = relaciones.attributes.name;
+          }
+        }
       }
+    }
+  }
 
-      instcover() 
-      {
-        for (let manga of this.trueManga){
-
-          for(let relaciones of manga.relationships){     
-
-            if (relaciones.attributes != undefined){
-              
-              this.imagen=`https://uploads.mangadex.org/covers/${manga.id}/${relaciones.attributes.fileName}.512.jpg`
-              manga.image=this.imagen
-            }
-      
-    }}
-
-      }
-
-      Ondetail(data:any){
-       console.log(data) 
-      }
-      
-
+  leer(manga: TrueManga_interface): void {
+    this.bottomSheet.open(BottomSheetComponent, {
+      data: { manga },
+    });
+  }
 }

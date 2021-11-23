@@ -13,11 +13,16 @@ import { HomeComponent } from './home/home.component';
 
 
 import { AppComponent } from './app.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    BottomSheetComponent
+
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { AppComponent } from './app.component';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatBottomSheetModule
   ],
   providers: [],
   bootstrap: [AppComponent]

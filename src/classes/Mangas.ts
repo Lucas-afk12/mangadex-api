@@ -7,6 +7,7 @@ export interface MangaData {
   titulo?: string;
   genero?: string;
   estado?: string;
+  descripcion?: string;
 }
 export interface personal {
   artista?: string;
@@ -15,17 +16,17 @@ export interface personal {
 }
 
 export class TrueManga {
-  private id?: number;
+  id?: number;
 
-  private Datos: MangaData;
+  Datos: MangaData;
 
-  private Personal: personal;
+  Personal: personal;
 
-  private Tags?: Array<Object>;
+  Tags?: Array<Object>;
 
-  private tipo?: string;
+  tipo?: string;
 
-  private apiID: string;
+  apiID: string;
 
   // eslint-disable-next-line max-len
   constructor(

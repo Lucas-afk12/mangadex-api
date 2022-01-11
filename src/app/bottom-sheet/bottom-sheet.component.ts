@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { HttpClient } from '@angular/common/http';
+import { TrueManga } from '../../classes/Mangas';
 
 interface volumes {
   chapters: chapters;
@@ -17,15 +18,14 @@ interface chapters {
   templateUrl: './bottom-sheet.component.html',
   styleUrls: ['./bottom-sheet.component.css'],
 })
-export class BottomSheetComponent {
-  a: any;
-  chapter: any[] = [];
-  trueChapter: volumes[] = [];
-
+export class BottomSheetComponent implements OnInit {
+  trueManga: TrueManga;
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public manga: any,
     private http: HttpClient
-  ) {
-    this.a = manga;
+  ) {}
+  ngOnInit() {
+    this.trueManga = this.manga.manga;
+    console.log(this.trueManga);
   }
 }

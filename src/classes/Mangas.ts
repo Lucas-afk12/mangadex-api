@@ -7,7 +7,7 @@ export interface MangaData {
   titulo?: string;
   genero?: string;
   estado?: string;
-  descripcion?: string;
+  descripcion?: any;
 }
 export interface personal {
   artista?: string;

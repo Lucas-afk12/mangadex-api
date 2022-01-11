@@ -10,20 +10,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 
-
-
 import { AppComponent } from './app.component';
-import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    BottomSheetComponent
-
-  ],
+  declarations: [AppComponent, HomeComponent, BottomSheetComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -34,9 +26,9 @@ import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

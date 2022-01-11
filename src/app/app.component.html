@@ -1,45 +1,42 @@
 <div class="body">
+  <app-home> </app-home>
 
-    <app-home> </app-home>
+  <div class="container__cards">
+    <div class="card" *ngFor="let manga of trueMangaArr">
+      <div class="cover">
+        <div
+          class="img__back"
+          style="background-image: url({{ manga.Personal.imagen }})"
+        ></div>
+      </div>
 
-    <div class="container__cards">
+      <div class="description" [ngSwitch]="manga.Datos.genero">
+        <h2 *ngSwitchCase="'shounen'" style="background-color: #FF000090">
+          {{ manga.Datos.genero }}
+        </h2>
 
-        <div class="card" *ngFor="let manga of trueManga">
+        <h2 *ngSwitchCase="'shoujo'" style="background-color:#C300AB90">
+          {{ manga.Datos.genero }}
+        </h2>
 
-            <div class="cover">
+        <h2 *ngSwitchCase="'josei'" style="background-color: #FE81EF90">
+          {{ manga.Datos.genero }}
+        </h2>
 
-                <div class="img__back" style="background-image: url({{manga.image}})"></div>
+        <h2 *ngSwitchCase="'seinen'" style="background-color: #F1C40F90">
+          {{ manga.Datos.genero }}
+        </h2>
 
-            </div>
+        <h2 *ngSwitchCase="null" style="background-color: #28374790">
+          No disponible
+        </h2>
 
-            <div class="description" [ngSwitch]="manga.attributes.publicationDemographic">
+        <h1>{{ manga.Datos.titulo }}</h1>
 
-                <h2 *ngSwitchCase="'shounen'" style="background-color: #FF000090">
-                    {{manga.attributes.publicationDemographic}}</h2>
+        <p>{{ manga.Datos.descripcion.en }}</p>
 
-                <h2 *ngSwitchCase="'shoujo'" style="background-color:#C300AB90">
-                    {{manga.attributes.publicationDemographic}}</h2>
-
-                <h2 *ngSwitchCase="'josei'" style="background-color: #FE81EF90">
-                    {{manga.attributes.publicationDemographic}}</h2>
-
-                
-                <h2 *ngSwitchCase="'seinen'" style="background-color: #F1C40F90">
-                    {{manga.attributes.publicationDemographic}}</h2>
-    
-
-                <h2 *ngSwitchCase=null style="background-color: #28374790">No disponible</h2>
-
-                <h1>{{manga.attributes.title.en}}</h1>
-
-                <p>{{manga.attributes.description.en}}</p>
-
-                <input type="button" value="Leer Más" (click)="leer(manga)">
-
-            </div>
-
-        </div>
-
+        <input type="button" value="Leer Más" (click)="leer(manga)" />
+      </div>
     </div>
-
+  </div>
 </div>

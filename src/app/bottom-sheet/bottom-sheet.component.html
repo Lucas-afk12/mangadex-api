@@ -5,12 +5,12 @@
       <img src="{{ trueManga.Personal.imagen }}" />
     </div>
     <div class="atributos" [ngSwitch]="trueManga.Datos.estado">
-      <p><b>tipo:</b> {{ trueManga.tipo }}</p>
-      <p><b>autor:</b> {{ trueManga.Personal.autor }}</p>
-      <p><b>genero:</b> {{ trueManga.Datos.genero }}</p>
+      <p><b>Tipo:</b> {{ trueManga.tipo }}</p>
+      <p><b>Autor:</b> {{ trueManga.Personal.autor }}</p>
+      <p><b>Genero:</b> {{ trueManga.Datos.genero }}</p>
       <p><b>Fecha de publicación:</b> {{ trueManga.Datos.fechaCreacion }}</p>
       <p>
-        <b>estado:</b>
+        <b>Estado:</b>
         <span
           *ngSwitchCase="'ongoing'"
           id="status"

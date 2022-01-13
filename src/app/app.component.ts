@@ -11,7 +11,6 @@ import { TrueManga } from '../classes/Mangas';
 })
 export class AppComponent implements OnInit {
   trueMangaArr: TrueManga[] = [];
-  trueManga: TrueManga;
 
   constructor(private http: HttpClient, private bottomSheet: MatBottomSheet) {}
 
@@ -19,7 +18,6 @@ export class AppComponent implements OnInit {
     this.http
       .get<TrueManga[]>('https://klk-api.herokuapp.com/mangas')
       .subscribe((res: any) => {
-        let Mangas: TrueManga[] = [];
         res.forEach((manga: any) => {
           const object: TrueManga = new TrueManga(
             manga.Datos,
